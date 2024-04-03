@@ -1,0 +1,37 @@
+---
+# Example Consul site playbook
+- name: Install consul
+  hosts: consul_instances
+  roles:
+    - consul
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+- name: Install Nginx
+  hosts: nginx
+  become: true
+  become_user: root
+  roles:
+    - ansible-role-nginx
+- name: Consul client and service
+  hosts: client_service_v1
+  vars_files:
+    - consul_service_v1.yaml
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+- name: Consul client and service
+  hosts: client_service_v2
+  vars_files:
+    - consul_services_v2.yaml
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul

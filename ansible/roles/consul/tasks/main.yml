@@ -1,0 +1,59 @@
+---
+# tasks file for consul
+- name: Install auxiliary applications
+  apt:
+    name:
+      - software-properties-common
+      - python3
+      - python3-pip
+      - python-setuptools
+      - acl
+    update_cache: yes
+- name: Install python-consul for ansible searching plugin
+  run_once: true
+  delegate_to: 192.168.1.70
+  pip:
+    name: python-consul
+    executable: pip3
+- name: Install consul GPG key
+  apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
+    state: present
+- name: Add Consul official repository
+  apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp.gpg] https://apt.releases.hashicorp.com focal main
+    state: present
+- name: Install Consul
+  apt:
+    name: consul
+    update_cache: yes
+- name: Install consul-template
+  run_once: true
+  delegate_to: 192.168.1.70
+  apt:
+    name: consul-template
+- name: Copy cystem file for consul-template
+  run_once: true
+  delegate_to: 192.168.1.70
+  copy:
+    src: consul-template.service
+    dest: /usr/lib/systemd/system/
+    owner: root
+    group: root
+- name: Create directory for consul-template config
+  run_once: true
+  delegate_to: 192.168.1.70
+  file:
+    path: /etc/consul-template.d/
+    owner: consul
+    group: consul
+    state: directory
+- name: Copy consul-template config
+  run_once: true
+  delegate_to: 192.168.1.70
+  copy:
+    src: consul-template.json
+    dest: /etc/consul-template.d/
+    owner: consul
+    group: consul

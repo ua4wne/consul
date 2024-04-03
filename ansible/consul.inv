@@ -1,0 +1,22 @@
+[consul_instances]
+192.168.1.68 consul_bind_address=192.168.1.68 consul_client_address="192.168.1.68 127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+192.168.1.57 consul_bind_address=192.168.1.57 consul_client_address="192.168.1.57 127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+192.168.1.45 consul_bind_address=192.168.1.45 consul_client_address="192.168.1.45 127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+192.168.1.70 consul_bind_address=192.168.1.70 consul_client_address="192.168.1.70 127.0.0.1" consul_node_role=client consul_enable_local_script_checks=false
+192.168.1.69 consul_bind_address=192.168.1.69 consul_client_address="192.168.1.69 127.0.0.1" consul_node_role=client consul_enable_local_script_checks=true
+192.168.1.53 consul_bind_address=192.168.1.53 consul_client_address="192.168.1.53 127.0.0.1" consul_node_role=client consul_enable_local_script_checks=true
+
+[nginx]
+192.168.1.70
+192.168.1.69
+192.168.1.53
+
+[client_service_v1]
+192.168.1.69
+
+[client_service_v2]
+192.168.1.53
+
+[backend]
+192.168.1.69
+192.168.1.53

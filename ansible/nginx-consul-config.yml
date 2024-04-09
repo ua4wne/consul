@@ -5,12 +5,12 @@
   become: true
   become_user: root
   tasks:
-    # - name: Getting backend name from consul KV storage
-    #   set_fact:
-    #     version: "{{ lookup('consul_kv', 'version', host='192.168.1.70 ') | default('v2', true) }}"
-    # - name: Print version
-    #   debug:
-    #     msg: "version = {{ version }}"
+    - name: Getting backend name from consul KV storage
+      set_fact:
+        version: "{{ lookup('consul_kv', 'version', host='192.168.1.70') | default('v2', true) }}" 
+    - name: Print version
+      debug:
+        msg: "version = {{ version }}"
     - name: Configure Nginx for consul-template
       include_role:
         name: ansible-role-nginx-config

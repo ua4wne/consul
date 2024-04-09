@@ -22,7 +22,7 @@
     state: present
 - name: Add Consul official repository
   apt_repository:
-    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp.gpg] https://apt.releases.hashicorp.com focal main
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp.gpg] https://apt.releases.hashicorp.com jammy main
     state: present
 - name: Install Consul
   apt:
